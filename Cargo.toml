@@ -15,6 +15,8 @@ path = "src/lib.rs"
 path = "src/main.rs"
 name = "zero2prod"
 
+[workspace]
+
 [dependencies]
 actix-web = "4"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
