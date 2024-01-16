@@ -47,16 +47,6 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
         .expect("Failed to connect to Postgres");
     let client = reqwest::Client::new();
 
-    // let mut connection = PgConnectOptions::new()
-    //     .host("localhost")
-    //     .port(5432)
-    //     .username("postgres")
-    //     .database("newsletter")
-    //     .password("bazepodataka")
-    //     .connect()
-    //     .await
-    //     .expect("Failed to connect to Postgres");
-
     //Act
     let body = "name=le%20guin&email=ursula_le_guin%40gmail.com";
     let response = client
