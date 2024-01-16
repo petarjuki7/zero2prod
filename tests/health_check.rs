@@ -1,4 +1,5 @@
-use sqlx::{Connection, PgConnection};
+use sqlx::postgres::PgConnectOptions;
+use sqlx::{ConnectOptions, Connection, PgConnection};
 use std::net::TcpListener;
 use zero2prod::configuration::get_configuration;
 use zero2prod::startup::run;
@@ -37,7 +38,7 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
     //Arrange
     let app_address = spawn_app();
     let configuration = get_configuration().expect("Failed to read configuration");
-    let connection_string = configuration.database.connection_string();
+    let connection_string = configuration.database.to_string();
 
     eprintln!("{}", connection_string);
 
@@ -45,6 +46,16 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
         .await
         .expect("Failed to connect to Postgres");
     let client = reqwest::Client::new();
+
+    // let mut connection = PgConnectOptions::new()
+    //     .host("localhost")
+    //     .port(5432)
+    //     .username("postgres")
+    //     .database("newsletter")
+    //     .password("bazepodataka")
+    //     .connect()
+    //     .await
+    //     .expect("Failed to connect to Postgres");
 
     //Act
     let body = "name=le%20guin&email=ursula_le_guin%40gmail.com";
